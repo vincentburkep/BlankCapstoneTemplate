@@ -1,0 +1,142 @@
+You need to get set up with two services in order to use this template.  If you are in a group, you can have one 
+group member do this.
+
+(A NOTE for MAC USERS: First, why? Just why. Next, Mac installs python 2 by default and Python 3 in Xcode. You
+hopefully already installed Xcode earlier because you needed it to get 'git'. This projecty uses python3
+so whenever you run python you have to use the command python3. 
+To check that this will work, go to the Mac Terminal - find it in Spotlight- and type 'python3'. It should
+report out that python 3.9 is installed.)
+
+### Before we begin ###
+
+This assumes you have: 
+1) Installed Visual Studio Code. (Which is what you are using to look at this file now)
+2) installed Git (https://github.com/git-guides/install-git)
+    Git NOT github desktop.
+3) Cloned the Capstone Flask Template (Which is what you are looking at now.)
+4) Installed Anaconda - https://www.anaconda.com/products/individual
+    (Mac users will not use Anaconda)
+
+#### Set VSC Default Terminal to cmd.exe (windows only) #####
+
+Open a new terminal in Visual Studio Code. If it is not
+already open then go to the Terminal menu and choose "New Terminal". Check in the bottom right corner to see 
+if the terminal is set to "powershell". If it is, pull down the 
+terminal menu which is a little down pointing arrow next to the '+' at the top right of the 
+terminal window in VSC. Choose "select default profile" then pick "Command Prompt".
+Then click the trash can next to any open termnal listed at the far right in the terminal 
+window pane. Then open a new terminal by going to the Terminal menu at the top of the screen.
+
+(Mac users, your default profile should be 'zsh'.)
+
+#### Install the Python Extension in VSC  ####
+
+1) Click the extensions icon on the left side of the screen. It looks like 4
+    squares.
+2) Search for and install the Python extension. It is the one created by Microsoft.
+ You can also install it from this link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+##### Install the Python Packages #####
+##### Deep breath, this can get messy  #####
+
+# Now you need to install all of the python packages.  To do this, open the terminal in Visual Studio Code. 
+# If it is not already open then go to the Terminal menu and choose "New Terminal". 'pip' is the 
+# name of the tool that installs python packages. This next command will just check to see if you
+# have pip installed. It should report back to you how to use pip.
+
+python -m pip
+(schMac users: python3 -m pip)
+
+# On the Internet you may see instructions to use just 'pip' and not 'python -m pip'. Don't do that.
+# 'python -m pip' ('python3 -m pip' for Mac users) is better becuase it makes sure that you are 
+# using the right version of pip.
+
+# If for some reason pip is not there first try a restart of your computer and then 
+# run the above command again. If it still isn't working ask Mr. Wright to help to install pip.  
+
+# If it is already installed lets make sure it is updated.
+
+python -m pip install --upgrade pip
+(Mac users, ugh, will type: python3 -m pip install --upgrade pip)
+
+# This command will install all the packages that are listed in the "requirements.txt" file
+
+python -m pip install -r requirements.txt
+(mac users will type: python3 -m pip install -r requirements.txt)
+
+# if you get an error READ IT. If it says you don't have access you need to use the '--user'
+# option.  See the command below.  You can add --user to any pip command.
+# python3 -m pip install --user -r requirements.txt
+
+# You should see several packages being downloaded and installed.
+# You can check to see if it worked by clicking on the main.py to the left and then clicking the run button (triangle)
+# at the top right of the screen.  
+
+TEST YOUR PROGRESS: 
+1) Click the Documents icon in the top left.
+2) find main.py, click it. You should see a play button in the top right corner.
+2a) If you don't see the play button, it is probably because you do not have the VSC Python extension 
+    installed. A small popup window might have shown up in the bottom right of your
+    VSC screen.  Click install!  If it didn't, click the extensions icon on the far 
+    left of the screen. It looks like a set of 4 squares. Search for and install 'Python'.
+3) When you click play you will probably get some errors.  If the error says something 
+    like "there is no module named xxxxx" then install the module:
+        python -m pip install xxxxx 
+        NOTE: if the module is named with an underscore like flask_login, when you install it,
+        use a hyphen like: flask-login.
+        (muck users: python3 not python) 
+        (if you get an access error use --user after install)
+4) run main.py again.  Keep doing this until you don't get module errors. You will get 
+    an error about app.utils.secrets or Jinja extensions. We will fix that next.
+
+### Hook up your database ###
+
+The next is mongodb.com where you will create your database and all the data from your site will be stored.
+1) I will describe the basic process to get an account at mongodb.com and find the 
+    code you need to include in your app.
+2) Sign up for an account at mongodb.com.  Click the "sign up" and NOT the "Try it Free" link.  This way you can
+    create a new account with your google credentials.
+3) You then going to get a free database "cluster".  Follow the instructions to create a new FREE cluster. You will be asked 
+    which service you want to use (Google, AWS or Azure). Look at each to find a "Free Tier" that is close to us.
+4) Click the connect button and then add 0.0.0.0 as the whitelist IP. There is a 'connect from anywhere' option. This will make it possible to administer your 
+    database from anywhere.  
+5) Add new database user admin and password.  This password will be viewable by a lot of people 
+    in class so don't use one that you already use for other important things.  
+    Something simple like Admin and BullDogz.
+6) Click "Add your own data" to create a new data base and a new collection.
+    Call the database 'capstone' and call the collection 'user'.
+7) Now you need to choose a connection method.  Click "Connect Your Application" and then configure the screen to give you the 
+    code for Python 3.6 and above and click "Copy"
+8) Copy the string that looks something like this:
+
+    mongodb+srv://<dbuser>:<dbpassword>@cluster0-8m0v1.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority   
+    NOTE: the '<>' characters should NOT be included.  They are just there to 
+          show that you have to insert your own information there.
+    NOTE: the dbusr and the dbpassword values ARE NOT what you used to log in to mongodb
+          Use the values you created to access your databases.
+
+    and now you need to paste it in to your app. 
+9) Go to the secrets-ChangeMe.py file and find MONGO_DB_NAME and MONGO_HOST. You need to add your values. Take a 
+    look at the placeholder text to be sure you are adding the right strings. 
+10) Change the file name from secrets-ChangeMe.py to:
+        secrets.py
+        NOTE: right click on the file name and choose 'rename'
+
+### Run Main.py ###
+1) Click the main.py file
+2) Click the run triangle
+3) Pray to the techno-gods
+4) Hopefully, your site will start and be avalable at https://127.0.0.1:5000
+
+### Set up an email account ###
+This step is optional but very useful.  You only need it if you want your users to be able to recover their 
+password via email if they forget. You should NOT use an email you currently use because you will need
+to write the password in a place that is not 100% secure.  So, go to gmail.com and create a new email account.
+Then add the address and the password the secrets file that is in the utils folder. 
+
+Finally, for the email recovery using a gmail account to work you need to turn on "less secure apps" 
+here https://myaccount.google.com/lesssecureapps.
+
+You should be ready to go!
+
+Run the main.py file. 

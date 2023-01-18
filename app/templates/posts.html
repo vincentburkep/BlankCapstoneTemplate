@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-4">
+        <h1 class="display-1">All Posts</h1>
+    </div>
+    <div class="col">
+        <a href="/post/new" class="btn btn-primary btn-sm mt-5" role="button">New Post</a>
+    </div>
+</div>
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="row border-bottom">
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3 class="display-5">Date</h3>
+                {% endif %}
+
+                <a href="/post/{{post.id}}">
+                    {{moment(post.create_date).calendar()}}
+                </a>
+            </div>
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3 class="display-5">User</h3>
+                {% endif %}
+                {{post.author.username}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Subject</h3>
+                {% endif %}
+                {{post.subject}}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>No Posts</h1>
+{% endif %}
+
+{% endblock %}
