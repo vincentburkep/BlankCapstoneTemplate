@@ -131,19 +131,4 @@ dmypy.json
 
 # Other
 *.code-workspace
-credentials.json
-*.csv
-/dump
-/docs
-/csv
-app.yaml
-*.pem
-req.conf
-appengine_config.py
-notes.py
-cleaning.py
-CloudRunNotes.txt
-zscripts.py
 secrets.py
-charts.py
-/scripts
