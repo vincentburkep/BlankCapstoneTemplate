@@ -144,5 +144,6 @@ notes.py
 cleaning.py
 CloudRunNotes.txt
 zscripts.py
+secrets.py
 charts.py
 /scripts
