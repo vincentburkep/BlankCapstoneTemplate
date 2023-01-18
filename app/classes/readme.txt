@@ -27,16 +27,16 @@ An example of a collection is a User collection where the fields are things like
 email, etc.  There are four things you will need to do with data: Create, Read, Update, Delete. 
 Take a look at the forum.py file to see all of these.  
 
-Additionally, you will want to relate data collections.  For example, a Post has an author who
-is a User and a Post has Comments.  One of the filed types is ReferenceField() which is used for
-this putpose. Here is the author example from the POst Collection in the data.py file:
+Additionally, you will want to relate data collections.  For example, a Blog has an author who
+is a User and a Blog has Comments.  One of the filed types is ReferenceField() which is used for
+this putpose. Here is the author example from the Blog Collection in the data.py file:
     author = ReferenceField('User') 
-This means that when you you get a post in an object you ALSO have the Author and all of that
+This means that when you you get a blog in an object you ALSO have the Author and all of that
 Author's User fields. For example:
-    posts = Post.objects() <-- this gets ALL of the Posts, you can also query for a smaller group
-    posts = Post.objects(author = current_user) <-- this will get alll posts authored by the User
+    blogs = Blog.objects() <-- this gets ALL of the Blogs, you can also query for a smaller group
+    blogs = Blog.objects(author = current_user) <-- this will get alll blogs authored by the User
                                                     who called the route
-Both of these methods will get multiple posts.  Even if only one post matches a query, the 
+Both of these methods will get multiple blogs.  Even if only one blog matches a query, the 
 object will contain a list of one object. If you want to get exactly one response you can use 
 something like this:
     user = User.objects.get(email = 'stephen.wright@ousd.org')

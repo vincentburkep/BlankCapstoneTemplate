@@ -1,5 +1,5 @@
 # This is where all the database collections are defined. A collection is a place to hold a defined 
-# set of data like Users, Posts, Comments. Collections are defined below as classes. Each class name is 
+# set of data like Users, Blogs, Comments. Collections are defined below as classes. Each class name is 
 # the name of the data collection and each item is a data 'field' that stores a piece of data.  Data 
 # fields have types like IntField, StringField etc.  This uses the Mongoengine Python Library. When 
 # you interact with the data you are creating an onject that is an instance of the class.
@@ -25,21 +25,18 @@ class User(UserMixin, Document):
     gid = StringField(sparse=True, unique=True)
     gname = StringField()
     gprofile_pic = StringField()
-    isadmin = BooleanField(default=False)
     username = StringField()
     fname = StringField()
     lname = StringField()
     email = EmailField()
     image = FileField()
-    role = StringField()
-    school = StringField()
     prononuns = StringField()
 
     meta = {
         'ordering': ['lname','fname']
     }
     
-class Post(Document):
+class Blog(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
     subject = StringField()
     content = StringField()
@@ -54,14 +51,13 @@ class Post(Document):
 class Comment(Document):
     # Line 63 is a way to access all the information in Course and Teacher w/o storing it in this class
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
-    post = ReferenceField('Post',reverse_delete_rule=CASCADE)
+    blog = ReferenceField('Blog',reverse_delete_rule=CASCADE)
     # This could be used to allow comments on comments
     comment = ReferenceField('Comment',reverse_delete_rule=CASCADE)
     # Line 68 is where you store all the info you need but won't find in the Course and Teacher Object
     content = StringField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
-    role = StringField("Role")
 
     meta = {
         'ordering': ['-createdate']

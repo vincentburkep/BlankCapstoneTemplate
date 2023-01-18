@@ -33,8 +33,6 @@ def profileEdit():
         currUser.update(
             lname = form.lname.data,
             fname = form.fname.data,
-            role = form.role.data,
-            school = form.school.data
         )
         # This updates the profile image
         if form.image.data:
@@ -50,19 +48,5 @@ def profileEdit():
     # then sends the user to the page with the edit profile form
     form.fname.data = current_user.fname
     form.lname.data = current_user.lname
-    form.role.data = current_user.role
-    form.school.data = current_user.school
 
     return render_template('profileform.html', form=form)
-
-
-@app.route('/user/delete/<userId>')
-@login_required
-def userDelete(userId):
-    if current_user.isadmin:
-        deleteUser = User.objects.get(pk = userId)
-        deleteUser.delete()
-        return redirect(url_for('teacherList'))
-    else:
-        flash("You must be an admin to see this page.")
-        return redirect(url_for('index'))

@@ -12,7 +12,7 @@
         {% if current_user.image %}
             <img class="img-thumbnail img-fluid" src="data:image;base64,{{base64encode(current_user.image.read())}}"> <br>
         {% else %}
-            <img class="img-thumbnail" width = "100" src="/static/bdog.jpg">
+            <img class="img-thumbnail" width = "100" src="/static/bdog.png">
         {% endif %} 
     </div>
     <div class="col display-5">
@@ -22,13 +22,7 @@
             Google User Name: {{current_user.gname}} <br>
         {% endif %}
         Email: {{current_user.email}} <br>
-        Role: {{current_user.role}} <br>
-        School: {{current_user.school}} <br>
-        GoogleID: {{current_user.gid}} <br>
-        Teacher Number: {{current_user.teacher_number}} <br>
-        {% if current_user.isadmin %}
-            Is Admin: {{current_user.isadmin}}
-        {% endif %}
+
     </div>
 </div>
 <br>

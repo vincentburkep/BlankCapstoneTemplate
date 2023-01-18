@@ -15,8 +15,6 @@ from app.classes.data import User
 from app.utils.secrets import getSecrets
 import mongoengine.errors
 
-admins=["stephen.wright@ousd.org","s_georgia.wallace@ousd.org"]
-
 #get all the credentials for google
 secrets = getSecrets()
 
@@ -108,7 +106,7 @@ def callback():
     # 'hd': 'ousd.org'
     # }
 
-    if userinfo_response.json().get("hd") != "ousd.org" and current_user.email not in admins:
+    if userinfo_response.json().get("hd") != "ousd.org":
         flash("You must have an ousd.org email account to access this site.")
         return "You must have an ousd.org email account to access this site.", 400
 
@@ -129,7 +127,7 @@ def callback():
     try:
         thisUser=User.objects.get(email=gmail)
     except mongoengine.errors.DoesNotExist:
-        if gmail in admins or userinfo_response.json().get("hd") == "ousd.org":
+        if userinfo_response.json().get("hd") == "ousd.org":
             thisUser = User(
                 gid=gid, 
                 gname=gname, 
@@ -152,16 +150,6 @@ def callback():
             lname = glname
         )
     thisUser.reload()
-
-    if thisUser.email in admins and not thisUser.isadmin:
-        thisUser.update(isadmin=True)
-    elif thisUser.email not in admins and thisUser.isadmin:
-        thisUser.update(isadmin=False)
-
-    if thisUser.email[0:2].lower() == "s_" and thisUser.email[-8:].lower() == "ousd.org" and (not thisUser.role or thisUser.role.lower() != "student"):
-        thisUser.update(role="Student")
-    if thisUser.email[0:2].lower() != "s_" and thisUser.email[-8:].lower() == "ousd.org" and ( not thisUser.role or thisUser.role.lower() != "teacher"):
-        thisUser.update(role="Teacher")
 
     # Begin user session by logging the user in
     login_user(thisUser)

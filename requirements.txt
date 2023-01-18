@@ -15,7 +15,6 @@ Jinja2==3.0.3
 mail==2.1.0
 mongoengine==0.20.0
 oauthlib==3.2.0
-pandas==1.4.1
 protobuf==4.21.1
 PyJWT==2.6.0
 requests==2.22.0

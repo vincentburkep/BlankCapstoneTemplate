@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 display-7" style="margin: 0% 37%;"> 
         <li class="nav-item">
-          <a class="nav-link" href="/">Link</a>
+          <a class="nav-link" href="/blogs">Blogs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">Another Link</a>
@@ -25,13 +25,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/myprofile">
               {{ current_user.gname }} 
-              <!--If you are using user roles, this some code to manage-->
-              {#
-                (
-                {{current_user.role}} 
-                {% if current_user.isadmin %} , Admin {% endif %}
-                )
-              #}
             </a>
             
           </li>          
