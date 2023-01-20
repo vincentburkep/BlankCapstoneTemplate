@@ -26,6 +26,21 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 2) Search for and install the Python extension. It is the one created by Microsoft.
  You can also install it from this link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
 
+##### Create a Python Environment for your project #####
+1) in the terminal you should see (base) at the begining of the command prompt.
+    this means you have anaconda installed and are using the "base" environment.
+2) type these command to create a new environment for this project
+    conda create --name yourProjectName python=3
+    conda activate yourProjectName
+3) now you want to set this to the default environment for this project. go to the View menu 
+    above and choose Command Palette...
+4) Search for 'Python: Select Interpreter' and choose the environment you just created.
+    If you don't see it click the refresh arrow in the top left of the envirnment list window.
+5) This project should now default to that environment and you should see it at the 
+    begining of the command prompt.
+
+
+
 ##### Install the Python Packages #####
 ##### Deep breath, this can get messy  #####
 
@@ -33,6 +48,8 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 # If it is not already open then go to the Terminal menu and choose "New Terminal". 'pip' is the 
 # name of the tool that installs python packages. This next command will just check to see if you
 # have pip installed. 
+
+# MAKE SURE YOU ARE IN THE ENVIRONMENT YOU MADE FOR THIS PROJECT.
 
 python -m pip
 schMac users: python3 -m pip
