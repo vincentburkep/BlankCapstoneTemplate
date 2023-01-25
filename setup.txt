@@ -6,7 +6,7 @@ This assumes you have:
     Git *NOT* github desktop.
 4) Installed Anaconda - https://www.anaconda.com/products/individual
     (Mac users will not use Anaconda)
-5) Setup your secrets.py file with your MongoDB credentials and
+5) Setup your secrets.py file inside the utils folder with your MongoDB credentials and
     your Google Project credentials
 
 #### Set VSC Default Terminal to cmd.exe (windows only) #####
@@ -28,10 +28,13 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 
 ##### Create a Python Environment for your project #####
 1) in the terminal you should see (base) at the begining of the command prompt.
-    this means you have anaconda installed and are using the "base" environment.
+    this means you have anaconda installed and are using the "base" environment. If you
+    don't see base,  click the view menu, then go to the Comppand Palettte then search for 
+    "python: Select Interpreter". Choose the one that is called "base".  Hopefully you should
+    now se (base)
 2) type these command to create a new environment for this project
-    conda create --name yourProjectName python=3
-    conda activate yourProjectName
+    conda create --name <yourProjectName> python=3
+    conda activate <yourProjectName>
 3) now you want to set this to the default environment for this project. go to the View menu 
     above and choose Command Palette...
 4) Search for 'Python: Select Interpreter' and choose the environment you just created.
@@ -51,6 +54,7 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 
 # MAKE SURE YOU ARE IN THE ENVIRONMENT YOU MADE FOR THIS PROJECT.
 
+# Type this command
 python -m pip
 schMac users: python3 -m pip
 
@@ -87,15 +91,14 @@ TEST YOUR PROGRESS:
     installed. A small popup window might have shown up in the bottom right of your
     VSC screen.  Click install!  If it didn't, click the extensions icon on the far 
     left of the screen. It looks like a set of 4 squares. Search for and install 'Python'.
-3) When you click play you will probably get some errors.  If the error says something 
+3) When you click play you may get some errors.  If the error says something 
     like "there is no module named xxxxx" then install the module:
         python -m pip install xxxxx 
         NOTE: if the module is named with an underscore like flask_login, when you install it,
         use a hyphen like: flask-login.
         (muck users: python3 not python) 
         (if you get an access error use --user after install)
-4) run main.py again.  Keep doing this until you don't get module errors. You will get 
-    an error about app.utils.secrets or Jinja extensions. We will fix that next.
+4) run main.py again.  Keep doing this until you don't get module errors. 
 
 ### Run Main.py ###
 1) Click the main.py file
