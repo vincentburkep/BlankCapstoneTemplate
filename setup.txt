@@ -44,8 +44,6 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 5) This project should now default to that environment and you should see it at the 
     begining of the command prompt.
 
-
-
 ##### Install the Python Packages #####
 ##### Deep breath, this can get messy  #####
 
