@@ -65,6 +65,7 @@ def updateLatLon(clinic):
                 lon = float(r[0]['lon'])
             )
             flash(f"clinic lat/lon updated")
+            return(clinic)
         else:
             flash('unable to retrieve lat/lon')
             return(clinic)
@@ -88,7 +89,7 @@ def clinicNew():
         )
         newClinic.save()
 
-        updateLatLon(newClinic)
+        newClinic = updateLatLon(newClinic)
 
         import requests
 
@@ -116,7 +117,7 @@ def clinicEdit(clinicID):
             description = form.description.data,
             modifydate = dt.datetime.utcnow,
         )
-        updateLatLon(editClinic)
+        editClinic = updateLatLon(editClinic)
         return redirect(url_for('clinic',clinicID=clinicID))
 
     form.name.data = editClinic.name
