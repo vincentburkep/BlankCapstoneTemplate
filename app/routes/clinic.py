@@ -88,7 +88,7 @@ def clinicNew():
         )
         newClinic.save()
 
-        newClinic = updateLatLon(newClinic)
+        updateLatLon(newClinic)
 
         import requests
 
@@ -116,7 +116,7 @@ def clinicEdit(clinicID):
             description = form.description.data,
             modifydate = dt.datetime.utcnow,
         )
-        editClinic = updateLatLon(editClinic)
+        updateLatLon(editClinic)
         return redirect(url_for('clinic',clinicID=clinicID))
 
     form.name.data = editClinic.name
