@@ -3,6 +3,7 @@
 # Created, Read, Updated or Deleted (CRUD)
 
 from app import app
+from app.utils.secrets import getSecrets
 import requests
 from flask import render_template, flash, redirect, url_for
 import requests
@@ -11,6 +12,7 @@ from app.classes.data import Clinic
 from app.classes.forms import ClinicForm
 from flask_login import login_required
 import datetime as dt
+
 
 @app.route('/clinic/map')
 @login_required
@@ -48,7 +50,8 @@ def clinicDelete(clinicID):
     return redirect(url_for('clinicList'))
 
 def updateLatLon(clinic):
-    url = f"https://nominatim.openstreetmap.org/search?street={clinic.streetAddress}&city={clinic.city}&state={clinic.state}&postalcode={clinic.zipcode}&format=json&addressdetails=1&email=<Your Email Here>"
+    secrets=getSecrets()
+    url = f"https://nominatim.openstreetmap.org/search?street={clinic.streetAddress}&city={clinic.city}&state={clinic.state}&postalcode={clinic.zipcode}&format=json&addressdetails=1&email={secrets['MY_EMAIL_ADDRESS']}"
     r = requests.get(url)
     try:
         r = r.json()

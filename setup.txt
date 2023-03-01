@@ -101,9 +101,7 @@ TEST YOUR PROGRESS:
 4) run main.py again.  Keep doing this until you don't get module errors. 
 
 ### Open Street Maps ###
-If you want to be able to retrieve lat/lon to show locations on a map you need to 
-add your email to the very end of the first line of updateStreetFunction in the 
-clinic.py file. it's the line that begins 'url = f"https://nominatim.openstreetmap.org...'
+Add your email address to the secrets.py file
 
 ### Run Main.py ###
 1) Click the main.py file
