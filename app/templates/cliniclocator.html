@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<!--Maps stylesheet-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0-beta.1/leaflet.css" />
-
+<!--this is where the javascript will insert the map-->
 <div id="map" style="height: 600px;"></div>
-
+<!--link the javascript library-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0-beta.1/leaflet.js"></script>
 <script type="text/javascript">
     // The first parameter are the coordinates of the center of the map
@@ -25,12 +26,13 @@
     map.addLayer(layer);
 
     // It even opens up a popup when you click it!
-    
     {% for clinic in clinics %}
         {% if clinic.lat and clinic.lon %}
+            // Add your fields to the ppup on the next line.
             L.marker(['{{clinic.lat}}', '{{clinic.lon}}']).addTo(map).bindPopup("<strong>{{clinic.name}}<br>{{clinic.streetAddress}}<br>{{clinic.city}},{{clinic.state}}  {{clinic.zipcode}}<br>desc: {{clinic.description}}</strong>")
         {% endif %}
     {% endfor %}
+    // this is a way to add a marker that ALWAYS shows up.
     L.marker([37.8323039, -122.2575883]).addTo(map).bindPopup("<strong>Oakland Tech</strong>").openPopup();
 
 

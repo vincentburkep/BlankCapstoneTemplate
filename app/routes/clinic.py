@@ -50,9 +50,13 @@ def clinicDelete(clinicID):
     return redirect(url_for('clinicList'))
 
 def updateLatLon(clinic):
+    # get your email address for the secrets file
     secrets=getSecrets()
+    # call the maps API with the address
     url = f"https://nominatim.openstreetmap.org/search?street={clinic.streetAddress}&city={clinic.city}&state={clinic.state}&postalcode={clinic.zipcode}&format=json&addressdetails=1&email={secrets['MY_EMAIL_ADDRESS']}"
+    # get the response from the API
     r = requests.get(url)
+    # Find the lat/lon in the response
     try:
         r = r.json()
     except:
@@ -60,6 +64,7 @@ def updateLatLon(clinic):
         return(clinic)
     else:
         if len(r) != 0:
+            # update the database
             clinic.update(
                 lat = float(r[0]['lat']),
                 lon = float(r[0]['lon'])
