@@ -1,7 +1,3 @@
-# These routes are an example of how to use data, forms and routes to create
-# a forum where a posts and comments on those posts can be
-# Created, Read, Updated or Deleted (CRUD)
-
 from app import app
 from app.utils.secrets import getSecrets
 import requests

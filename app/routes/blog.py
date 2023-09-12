@@ -1,5 +1,5 @@
 # These routes are an example of how to use data, forms and routes to create
-# a forum where a blogs and comments on those blogs can be
+# a blog where a blogs and comments on those blogs can be
 # Created, Read, Updated or Deleted (CRUD)
 
 from app import app

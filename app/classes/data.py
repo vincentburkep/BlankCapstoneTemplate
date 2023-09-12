@@ -13,8 +13,7 @@ from setuptools import SetuptoolsDeprecationWarning
 from app import app
 from flask import flash
 from flask_login import UserMixin
-from mongoengine import FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, BooleanField, FloatField, CASCADE
-from flask_mongoengine import Document
+from mongoengine import Document, FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, BooleanField, FloatField, CASCADE
 import datetime as dt
 import jwt
 from time import time
@@ -35,7 +34,7 @@ class User(UserMixin, Document):
     meta = {
         'ordering': ['lname','fname']
     }
-    
+
 class Blog(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
     subject = StringField()

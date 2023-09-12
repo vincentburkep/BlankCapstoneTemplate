@@ -14,7 +14,7 @@ several methods like form.validate_on_submit() which is true/false and can be us
 if the form was submitted and contains data. The form object also contains any errors that 
 may have occurred in the submitting of the form. Checkout 'profileform.html' to see how forms
 are renderred in html.  In that form there are two different ways to show errors. Check out 
-forum.py to see how forms are created and handled for all the CRUD (Create, Read, Update, Delete)
+blog.py to see how forms are created and handled for all the CRUD (Create, Read, Update, Delete)
 operations.
 
 Check out WTForms for more information on field types: https://wtforms.readthedocs.io
@@ -25,7 +25,7 @@ We are using MongoDB to store and manipulate data. We are using the MongoEngine 
 Flask to MongoDB. In data.py you can define a data collection which is a set of related fields. 
 An example of a collection is a User collection where the fields are things like firstName, lastName,
 email, etc.  There are four things you will need to do with data: Create, Read, Update, Delete. 
-Take a look at the forum.py file to see all of these.  
+Take a look at the blog.py file to see all of these.  
 
 Additionally, you will want to relate data collections.  For example, a Blog has an author who
 is a User and a Blog has Comments.  One of the filed types is ReferenceField() which is used for
