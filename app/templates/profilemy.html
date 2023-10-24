@@ -25,7 +25,7 @@
         Roles: 
         {% for role in current_user.roles %}
         <ul>
-            <li>{{role.name}}</li>
+            <li>{{role.name.capitalize()}}</li>
         </ul>
         {% endfor %}
 
