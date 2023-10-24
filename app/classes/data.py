@@ -13,11 +13,12 @@ from setuptools import SetuptoolsDeprecationWarning
 from app import app
 from flask import flash
 from flask_login import UserMixin
-from mongoengine import Document, FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, BooleanField, FloatField, CASCADE
+from mongoengine import Document, ListField, FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, BooleanField, FloatField, CASCADE
 import datetime as dt
 import jwt
 from time import time
 from bson.objectid import ObjectId
+from flask_security import RoleMixin
 
 class User(UserMixin, Document):
     createdate = DateTimeField(defaultdefault=dt.datetime.utcnow)
@@ -30,10 +31,43 @@ class User(UserMixin, Document):
     email = EmailField()
     image = FileField()
     prononuns = StringField()
+    roles = ListField(ReferenceField("Role"))
 
     meta = {
         'ordering': ['lname','fname']
     }
+
+    def has_role(self, name):
+        """Does this user have this permission?"""
+        try:
+            chk_role = Role.objects.get(name=name)
+        except:
+            flash(f"{name} is not a valid role.")
+            return False
+        if chk_role in self.roles:
+            return True
+        else:
+            flash(f"That page requires the {name} role.")
+            return False
+
+class Role(RoleMixin, Document):
+    # The RoleMixin requires this field to be named "name"
+    name = StringField()
+
+# To require a role for a specific route use this decorator
+# @require_role(role="student")
+
+def require_role(role):
+    """make sure user has this role"""
+    def decorator(func):
+        @wraps(func)
+        def wrapped_function(*args, **kwargs):
+            if not current_user.has_role(role):
+                return redirect("/")
+            else:
+                return func(*args, **kwargs)
+        return wrapped_function
+    return decorator
 
 class Blog(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 

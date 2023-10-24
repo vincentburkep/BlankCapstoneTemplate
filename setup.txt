@@ -109,6 +109,12 @@ Add your email address to the secrets.py file
 3) Pray to the techno-gods
 4) Hopefully, your site will start and be avalable at https://127.0.0.1:5000
 
+Now you need to install the initial set of roles.  Click this link to make that happen.
+https://127.0.0.1:5000/makeroles
+
+to check to see if it worked, click this:
+https://127.0.0.1:5000/listroles
+
 You should be ready to go!
 
 Run the main.py file. 

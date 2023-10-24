@@ -10,6 +10,7 @@ from app.classes.data import Blog, Comment
 from app.classes.forms import BlogForm, CommentForm
 from flask_login import login_required
 import datetime as dt
+from flask_security import roles_required
 
 # This is the route to list all blogs
 @app.route('/blog/list')
