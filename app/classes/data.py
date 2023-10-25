@@ -11,14 +11,16 @@ from xmlrpc.client import Boolean
 
 from setuptools import SetuptoolsDeprecationWarning
 from app import app
-from flask import flash
-from flask_login import UserMixin
+from flask import flash, redirect
+from flask_login import UserMixin, current_user
 from mongoengine import Document, ListField, FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, BooleanField, FloatField, CASCADE
 import datetime as dt
 import jwt
 from time import time
 from bson.objectid import ObjectId
 from flask_security import RoleMixin
+from functools import wraps
+
 
 class User(UserMixin, Document):
     createdate = DateTimeField(defaultdefault=dt.datetime.utcnow)

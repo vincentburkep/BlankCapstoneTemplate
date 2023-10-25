@@ -6,11 +6,15 @@ from app import app
 import mongoengine.errors
 from flask import render_template, flash, redirect, url_for
 from flask_login import current_user
-from app.classes.data import Blog, Comment
+from app.classes.data import require_role, Blog, Comment
 from app.classes.forms import BlogForm, CommentForm
 from flask_login import login_required
 import datetime as dt
-from flask_security import roles_required
+
+@app.route('/admin')
+@require_role(role='student')
+def admin():
+    return redirect(url_for('index'))
 
 # This is the route to list all blogs
 @app.route('/blog/list')
