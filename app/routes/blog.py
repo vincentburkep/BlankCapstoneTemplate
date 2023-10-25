@@ -11,11 +11,6 @@ from app.classes.forms import BlogForm, CommentForm
 from flask_login import login_required
 import datetime as dt
 
-@app.route('/admin')
-@require_role(role='student')
-def admin():
-    return redirect(url_for('index'))
-
 # This is the route to list all blogs
 @app.route('/blog/list')
 @app.route('/blogs')
