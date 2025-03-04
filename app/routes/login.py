@@ -1,4 +1,5 @@
 
+
 # Python standard libraries
 import json
 from app import app, login_manager
@@ -11,7 +12,7 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
-from app.classes.data import User, Role
+from app.classes.data import User
 from app.utils.secrets import getSecrets
 import mongoengine.errors
 
@@ -20,16 +21,6 @@ secrets = getSecrets()
 
 # OAuth2 client setup
 client = WebApplicationClient(secrets['GOOGLE_CLIENT_ID'])
-
-@app.before_request
-def before_request():
-
-    # this checks if the user requests http and if they did it changes it to https
-    if not request.is_secure:
-        flash("not secure")
-        url = request.url.replace("http://", "https://", 1)
-        code = 301
-        return redirect(url, code=code)
 
 # When a route is decorated with @login_required and fails this code is run
 # https://flask-login.readthedocs.io/en/latest/#flask_login.LoginManager.unauthorized_handler
@@ -116,51 +107,42 @@ def callback():
     # 'hd': 'ousd.org'
     # }
 
-    if userinfo_response.json().get("hd") != "ousd.org":
-        flash("You must have an ousd.org email account to access this site.")
-        return "You must have an ousd.org email account to access this site.", 400
+    # if userinfo_response.json().get("hd") != "ousd.org":
+    #     flash("You must have an ousd.org email account to access this site.")
+    #     return "You must have an ousd.org email account to access this site.", 400
 
     # We want to make sure their email is verified.
     # The user authenticated with Google, authorized our
     # app, and now we've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
-        gid = userinfo_response.json()["sub"]
-        gmail = userinfo_response.json()["email"]
-        gprofile_pic = userinfo_response.json()["picture"]
-        gname = userinfo_response.json()["name"]
-        gfname = userinfo_response.json()["given_name"]
-        glname = userinfo_response.json()["family_name"]
-        if gmail[:3] == "s_":
-            studentRole = Role.objects.get(name="student")
-            role = studentRole
-        else:
-            teacherRole = Role.objects.get(name="teacher")
-            role = teacherRole
+        gid = userinfo_response.json().get("sub","")
+        gmail = userinfo_response.json().get("email","")
+        gprofile_pic = userinfo_response.json().get("picture","")
+        gname = userinfo_response.json().get("name","")
+        gfname = userinfo_response.json().get("given_name","")
+        glname = userinfo_response.json().get("family_name","")
     else:
         return "User email not available or not verified by Google.", 400
 
     # Get user from DB or create new user
     try:
         thisUser=User.objects.get(email=gmail)
+    # if the user does not exist, create them and make sure they are ousd.org
     except mongoengine.errors.DoesNotExist:
-        if userinfo_response.json().get("hd") == "ousd.org":
-            thisUser = User(
-                gid=gid, 
-                gname=gname, 
-                email=gmail, 
-                gprofile_pic=gprofile_pic,
-                fname = gfname,
-                lname = glname
-            )
-            thisUser.save()
-            if role not in thisUser.roles:
-                thisUser.update(
-                    add_to_set__roles=role
-                )
-            thisUser.reload()
-        else:
-            flash("You must have an ousd.org email to login to this site.")
-            return redirect(url_for('index'))
+        # if userinfo_response.json().get("hd") == "ousd.org":
+        thisUser = User(
+            gid=gid, 
+            gname=gname, 
+            email=gmail, 
+            gprofile_pic=gprofile_pic,
+            fname = gfname,
+            lname = glname
+        )
+        thisUser.save()
+        thisUser.reload()
+        # else:
+        #     flash("You must have an ousd.org email to login to this site.")
+        #     return redirect(url_for('index'))
     else:
         thisUser.update(
             gid=gid, 
@@ -169,17 +151,13 @@ def callback():
             fname = gfname,
             lname = glname
         )
-        if len(thisUser.roles) == 0 or role not in thisUser.roles:
-            thisUser.update(
-                add_to_set__roles=role
-            )
     thisUser.reload()
 
     # Begin user session by logging the user in
     login_user(thisUser)
 
     # Send user back to homepage
-    return redirect(url_for("index"))
+    return redirect(url_for("myProfile"))
 
 
 @app.route("/logout")

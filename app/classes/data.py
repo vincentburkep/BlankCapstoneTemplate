@@ -33,43 +33,10 @@ class User(UserMixin, Document):
     email = EmailField()
     image = FileField()
     prononuns = StringField()
-    roles = ListField(ReferenceField("Role"))
 
     meta = {
         'ordering': ['lname','fname']
     }
-
-    def has_role(self, name):
-        """Does this user have this permission?"""
-        try:
-            chk_role = Role.objects.get(name=name)
-        except:
-            flash(f"{name} is not a valid role.")
-            return False
-        if chk_role in self.roles:
-            return True
-        else:
-            flash(f"That page requires the {name} role.")
-            return False
-
-class Role(RoleMixin, Document):
-    # The RoleMixin requires this field to be named "name"
-    name = StringField()
-
-# To require a role for a specific route use this decorator
-# @require_role(role="student")
-
-def require_role(role):
-    """make sure user has this role"""
-    def decorator(func):
-        @wraps(func)
-        def wrapped_function(*args, **kwargs):
-            if not current_user.has_role(role):
-                return redirect("/")
-            else:
-                return func(*args, **kwargs)
-        return wrapped_function
-    return decorator
 
 class Blog(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
@@ -111,6 +78,39 @@ class Clinic(Document):
     lat = FloatField()
     lon = FloatField()
     
+    meta = {
+        'ordering': ['-createdate']
+    }
+
+class Review(Document):
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    name = StringField()
+    subject = StringField()
+    text = StringField()
+    rating = IntField()
+    subject = StringField()
+    create_date = DateTimeField(default=dt.datetime.utcnow)
+    modify_date = DateTimeField()
+
+    meta = {
+        'ordering': ['-createdate']
+    }
+
+class Reply(Document):
+    # Line 63 is a way to access all the information in Course and Teacher w/o storing it in this class
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    review = ReferenceField('Review',reverse_delete_rule=CASCADE)
+    name = StringField()
+    # This could be used to allow comments on comments
+    outer = BooleanField()
+    replies = ListField()
+    dFromOuter = IntField()
+    #ReferenceField('Reply',reverse_delete_rule=CASCADE)
+    # Line 68 is where you store all the info you need but won't find in the Course and Teacher Object
+    text = StringField()
+    create_date = DateTimeField(default=dt.datetime.utcnow)
+    modify_date = DateTimeField()
+
     meta = {
         'ordering': ['-createdate']
     }

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <!--List all errors in a group at the top-->
+        {% for field in form.errors %}
+            {% for error in form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong>{{field}}: {{error}}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <br><br>
+        <h5 class="display-5" style="font-family: Georgia, 'Times New Roman', Times, serif; color: #125672;" >{{review.name}}</h1>
+        <br>
+        <h3 style="font-family: Georgia, 'Times New Roman', Times, serif; color: #544cc2 ">{{review.text}} </h3><br>
+        <h3 style="font-family: Georgia, 'Times New Roman', Times, serif; color: #4b4691"> New Reply</h6>        <form method=post style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: x-large;">
+            <br>
+            {{ form.hidden_tag() }}
+            {{ form.text(cols=64) }}
+            <!--List the errors for this field-->
+            {% for error in form.text.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            <br>
+            <br>
+            {{form.submit()}}
+        </form>
+        
+{% endblock %}

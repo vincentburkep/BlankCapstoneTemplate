@@ -27,15 +27,15 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 
 ##### Create a Python Environment for your project #####
 1) in the terminal you should see (base) at the begining of the command prompt.
-    this means you have anaconda installed and are using the "base" environment. If you
+    this means you have anaconda installed, the python extension installed, and are using the "base" environment. If you
     don't see base,  click the view menu, then go to the Comppand Palettte then search for 
     "python: Select Interpreter". Choose the one that is called "base".  Hopefully you should
-    now see (base)
+    now see (base). If you don't, there might be a little pop up that says "
 2) type these command to create a new environment for this project. Replace <yourProjectName> 
     with the name of your project.
 
-    conda create --name <yourProjectName> python=3
-    conda activate <yourProjectName>
+    conda create --name MyCapstone python=3
+    conda activate MyCapstone
 
 3) now you want to set this to your default environment for this project. go to the View menu 
     above and choose Command Palette...
