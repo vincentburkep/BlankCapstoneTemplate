@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>Hello World!</h1>
-<img src="Logo.png">
-<br><br><br>
+  <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" width="100">
+  <h1>Hello World!</h1>
+  <br><br><br>
 {% endblock %}
