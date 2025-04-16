@@ -8,12 +8,20 @@ from wtforms.validators import URL, Email, DataRequired, NumberRange
 from wtforms.validators import URL, Email, DataRequired
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField, FileField, BooleanField, URLField
 
+class ListingForm(FlaskForm):
+    gym_location = StringField('location', validators=[DataRequired()])
+    gym_picture = FileField("Image")
+    gym_quality = StringField("Rating")
+    gym_price = StringField("Price")
+    gym_contact = EmailField('email')
+
 class ProfileForm(FlaskForm):
     fname = StringField('First Name', validators=[DataRequired()])
     lname = StringField('Last Name', validators=[DataRequired()]) 
     image = FileField("Image") 
     submit = SubmitField('Post')
-    role = SelectField('Role', choices=[("Teacher","Teacher"),("Student","Student")])
+    role = SelectField('Role', choices=[("Owner","Owner"),("Manager","Manager")])
+    location = SelectField('location', choices=[("Oakland","Oakland"),("San Francisco","San Francisco")])
 
 class BlogForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
