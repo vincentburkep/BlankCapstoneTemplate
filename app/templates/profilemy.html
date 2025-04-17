@@ -20,11 +20,12 @@ Location: {{current_user.location}} <br>
     </div>
     <div class="col display-5">
         {% if current_user.fname and current_user.lname %}
-            Name: {{current_user.fname}}  {{current_user.lname}} <br>
+            NAME: {{current_user.fname}}  {{current_user.lname}} <br>
         {% else %}
             Google User Name: {{current_user.gname}} <br>
         {% endif %}
         Email: {{current_user.email}} <br>
+        role: {{current_user.role}}
 
 
     </div>

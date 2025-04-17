@@ -30,6 +30,14 @@
                 {% endfor %}
             </p>
             <p>
+                {{ form.num.label }} <br>
+                {{ form.num(size=64) }}
+                <!--List the errors for this field-->
+                {% for error in form.subject.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
                 {{form.submit()}}
             </p>
         </form>

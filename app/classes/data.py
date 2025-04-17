@@ -8,7 +8,7 @@ from sys import getprofile
 from tokenize import String
 from typing import KeysView
 from xmlrpc.client import Boolean
-
+from dataclasses import dataclass
 from setuptools import SetuptoolsDeprecationWarning
 from app import app
 from flask import flash, redirect
@@ -36,7 +36,6 @@ class User(UserMixin, Document):
     role = Stringfield()
     location = Stringfield()
     role = StringField()
-    zipcode = IntField()
     meta = {
         'ordering': ['lname','fname']
     }
@@ -46,6 +45,7 @@ class Blog(Document):
     subject = StringField()
     content = StringField()
     tag = StringField()
+    num = IntField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
 
@@ -123,6 +123,19 @@ class Reply(Document):
     #ReferenceField('Reply',reverse_delete_rule=CASCADE)
     # Line 68 is where you store all the info you need but won't find in the Course and Teacher Object
     text = StringField()
+    create_date = DateTimeField(default=dt.datetime.utcnow)
+    modify_date = DateTimeField()
+
+    meta = {
+        'ordering': ['-createdate']
+    }
+
+class League(Document):
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    name = StringField()
+    sport = StringField()
+    founder = StringField()
+    num_of_teams = IntField()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
 
