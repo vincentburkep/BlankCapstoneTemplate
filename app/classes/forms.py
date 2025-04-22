@@ -59,6 +59,6 @@ class ReplyForm(FlaskForm):
 class LeagueForm(FlaskForm):
     name = StringField('League Name', validators=[DataRequired()])
     founder = StringField('Founder', validators=[DataRequired()])
-    sport = StringField('Sport', validators=[DataRequired()])
+    sport = SelectField('Role', choices=[("Volleyball","Volleyball"),("Soccer","Soccer"),("Basketball","Basketball")])
     num_of_teams = IntegerField('Number of teams', validators=[DataRequired()])
-    submit = SubmitField('Blog')
+    submit = SubmitField('Create League')

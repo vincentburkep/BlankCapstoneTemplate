@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <h1></h1>
+
+        <form method=post>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.name.label }} <br>
+                {{ form.name(size=64) }}
+                <!--List the errors for this field-->
+                {% for error in form.name.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.founder.label }} <br>
+                {{ form.founder(cols=64, rows=1) }}
+                <!--List the errors for this field-->
+                {% for error in form.founder.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.sport.label }}<br>
+                {{ form.sport() }}<br>
+                {% for error in form.sport.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.num_of_teams.label }} <br>
+                {{ form.num_of_teams(size=8) }}
+                <!--List the errors for this field-->
+                {% for error in form.num_of_teams.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{form.submit()}}
+            </p>
+        </form>
+        
+{% endblock %}
