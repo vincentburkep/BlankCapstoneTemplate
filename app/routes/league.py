@@ -25,10 +25,10 @@ def leagueNew():
         newLeague = League(
             # the left side is the name of the field from the data table
             # the right side is the data the user entered which is held in the form object.
-            name = form.subject.data,
-            founder = form.content.data,
-            sport = form.tag.data,
-            num_of_teams = form.num.data,
+            name = form.name.data,
+            founder = form.founder.data,
+            sport = form.sport.data,
+            num_of_teams = form.num_of_teams.data,
             author = current_user.id,
             
             # This sets the modifydate to the current datetime.
@@ -50,3 +50,36 @@ def leagueNew():
     # stored in the form object and are displayed on the form. take a look at blogform.html to 
     # see how that works.
     return render_template('leagueform.html',form=form)
+
+# This route will get one specific blog and any comments associated with that blog.  
+# The blogID is a variable that must be passsed as a parameter to the function and 
+# can then be used in the query to retrieve that blog from the database. This route 
+# is called when the user clicks a link on bloglist.html template.
+# The angle brackets (<>) indicate a variable. 
+@app.route('/league/<leagueID>')
+# This route will only run if the user is logged in.
+@login_required
+def league(leagueID):
+    # retrieve the blog using the blogID
+    thisLeague = League.objects.get(id=leagueID)
+    # If there are no comments the 'comments' object will have the value 'None'. Comments are 
+    # related to blogs meaning that every comment contains a reference to a blog. In this case
+    # there is a field on the comment collection called 'blog' that is a reference the Blog
+    # document it is related to.  You can use the blogID to get the blog and then you can use
+    # the blog object (thisBlog in this case) to get all the comments.
+    theseComments = Comment.objects(league=thisLeague)
+    # Send the blog object and the comments object to the 'blog.html' template.
+    return render_template('league.html',league=thisLeague,comments=theseComments)
+
+@app.route('/league/list')
+@app.route('/leagues')
+# This means the user must be logged in to see this page
+@login_required
+def leagueList():
+    # This retrieves all of the 'blogs' that are stored in MongoDB and places them in a
+    # mongoengine object as a list of dictionaries name 'blogs'.
+    leagues = League.objects()
+    # This renders (shows to the user) the blogs.html template. it also sends the blogs object 
+    # to the template as a variable named blogs.  The template uses a for loop to display
+    # each blog.
+    return render_template('leagues.html',leagues=leagues)
