@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 import mongoengine.errors
 from wtforms.validators import URL, Email, DataRequired, NumberRange
 from wtforms.validators import URL, Email, DataRequired
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField, FileField, BooleanField, URLField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField, FileField, BooleanField, URLField, EmailField
 
 class ListingForm(FlaskForm):
     gym_location = StringField('location', validators=[DataRequired()])
@@ -62,3 +62,4 @@ class LeagueForm(FlaskForm):
     sport = SelectField('Role', choices=[("Volleyball","Volleyball"),("Soccer","Soccer"),("Basketball","Basketball")])
     num_of_teams = IntegerField('Number of teams', validators=[DataRequired()])
     submit = SubmitField('Create League')
+    address = StringField('Address', validators=[DataRequired()])

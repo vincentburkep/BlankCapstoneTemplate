@@ -22,6 +22,7 @@ def leagueNew():
             founder = form.founder.data,
             sport = form.sport.data,
             num_of_teams = form.num_of_teams.data,
+            address = form.address.data,
             author = current_user.id,
             
             # This sets the modifydate to the current datetime.
@@ -96,6 +97,7 @@ def leagueEdit(leagueID):
             founder = form.founder.data,
             sport = form.sport.data,
             num_of_teams = form.num_of_teams.data,
+            address = form.address.data,
             modify_date = dt.datetime.utcnow
         )
         # After updating the document, send the user to the updated blog using a redirect.
@@ -107,6 +109,7 @@ def leagueEdit(leagueID):
     form.founder.data = editLeague.founder
     form.sport.data = editLeague.sport
     form.num_of_teams.data = editLeague.num_of_teams
+    form.address.data = editLeague.address
 
 
     # Send the user to the blog form that is now filled out with the current information

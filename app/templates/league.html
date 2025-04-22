@@ -25,30 +25,11 @@
             {{league.name}} <br>
             {{league.founder}} <br>
             {{league.sport}} <br>
-            {{league.num_of_teams}}
+            {{league.num_of_teams}} <br>
+            {{league.address}}
 
     </p>
-    <a href="/comment/new/{{league.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>
-
-    {% if comments %}
-    <h1 class="display-5">Comments</h1>
-    {% for comment in comments %}
-        {% if current_user == comment.author %}
-            <a href="/comment/delete/{{comment.id}}"><img width="20" src="/static/delete.png"></a> 
-            <a href="/comment/edit/{{comment.id}}"><img width="20" src="/static/edit.png"></a>
-        {% endif %}
-        {{moment(comment.create_date).calendar()}} {{comment.author.username}} 
-        {% if comment.modifydate %}
-            modified {{moment(comment.modifydate).calendar()}}
-        {% endif %}
-        <br>
-        <p class="fs-3">
-            {{comment.content}}
-        </p>
-    {% endfor %}
-    {% else %}
-        <h1 class="display-5">No Comments</h1>
-    {% endif %}
+    
 {% else %}
     <h1 class="display-5">No League</h1>
 {% endif %}

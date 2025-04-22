@@ -33,8 +33,6 @@ class User(UserMixin, Document):
     email = EmailField()
     image = FileField()
     prononuns = StringField()
-    role = Stringfield()
-    location = Stringfield()
     role = StringField()
     meta = {
         'ordering': ['lname','fname']
@@ -136,6 +134,7 @@ class League(Document):
     sport = StringField()
     founder = StringField()
     num_of_teams = IntField()
+    address = StringField ()
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
 

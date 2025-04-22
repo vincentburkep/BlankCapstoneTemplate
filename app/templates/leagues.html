@@ -16,24 +16,25 @@
         <div class="row border-bottom">
             <div class="col-2">
                 {% if loop.index == 1 %}
-                <h3 class="display-5">Date</h3>
+                <h3 class="display-5">League</h3>
                 {% endif %}
 
                 <a href="/league/{{league.id}}">
-                    {{moment(league.create_date).calendar()}}
+                    {{league.name}}
                 </a>
+            </div>
+
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3 class="display-5">Founder</h3>
+                {% endif %}
+                {{league.founder}}
             </div>
             <div class="col-2">
                 {% if loop.index == 1 %}
-                <h3 class="display-5">User</h3>
+                <h3 class="display-5">Address</h3>
                 {% endif %}
-                {{league.author.fname}} {{league.author.lname}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Subject</h3>
-                {% endif %}
-                {{league.name}}
+                {{league.address}}
             </div>
         </div>
     {% endfor %}
