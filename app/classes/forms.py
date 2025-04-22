@@ -55,3 +55,10 @@ class ReviewForm(FlaskForm):
 class ReplyForm(FlaskForm):
     text = TextAreaField('Reply', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+class LeagueForm(FlaskForm):
+    name = StringField('League Name', validators=[DataRequired()])
+    founder = StringField('Founder', validators=[DataRequired()])
+    sport = StringField('Sport', validators=[DataRequired()])
+    num_of_teams = IntegerField('Number of teams', validators=[DataRequired()])
+    submit = SubmitField('Blog')
