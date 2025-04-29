@@ -51,18 +51,11 @@ def leagueNew():
 # is called when the user clicks a link on bloglist.html template.
 # The angle brackets (<>) indicate a variable. 
 @app.route('/league/<leagueID>')
-# This route will only run if the user is logged in.
 @login_required
 def league(leagueID):
-    # retrieve the blog using the blogID
     thisLeague = League.objects.get(id=leagueID)
-    # If there are no comments the 'comments' object will have the value 'None'. Comments are 
-    # related to blogs meaning that every comment contains a reference to a blog. In this case
-    # there is a field on the comment collection called 'blog' that is a reference the Blog
-    # document it is related to.  You can use the blogID to get the blog and then you can use
-    # the blog object (thisBlog in this case) to get all the comments.
-    # Send the blog object and the comments object to the 'blog.html' template.
-    return render_template('league.html',league=thisLeague)
+    teams = Team.objects(league=thisLeague)
+    return render_template('league.html', league=thisLeague, teams=teams)
 
 @app.route('/league/list')
 @app.route('/leagues')
@@ -136,3 +129,4 @@ def leagueDelete(leagueID):
     leagues = League.objects()  
     # Send the user to the list of remaining blogs.
     return render_template('leagues.html',leagues=leagues)
+    

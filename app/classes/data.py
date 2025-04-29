@@ -143,3 +143,11 @@ class League(Document):
     meta = {
         'ordering': ['-createdate']
     }
+
+class Team(Document):
+    name = StringField(required=True)
+    coach = StringField()
+    city = StringField()
+    league = ReferenceField('League', reverse_delete_rule=CASCADE)
+    create_date = DateTimeField(default=dt.datetime.utcnow)
+    modify_date = DateTimeField()

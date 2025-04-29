@@ -14,6 +14,7 @@ class ListingForm(FlaskForm):
     gym_quality = StringField("Rating")
     gym_price = StringField("Price")
     gym_contact = EmailField('email')
+    submit = SubmitField('Create Listing')
 
 class ProfileForm(FlaskForm):
     fname = StringField('First Name', validators=[DataRequired()])
@@ -63,3 +64,9 @@ class LeagueForm(FlaskForm):
     num_of_teams = IntegerField('Number of teams', validators=[DataRequired()])
     submit = SubmitField('Create League')
     address = StringField('Address', validators=[DataRequired()])
+
+class TeamForm(FlaskForm):
+    name = StringField('Team Name', validators=[DataRequired()])
+    coach = StringField('Coach')
+    city = StringField('City')
+    submit = SubmitField('Add Team')
