@@ -149,5 +149,6 @@ class Team(Document):
     coach = StringField()
     city = StringField()
     league = ReferenceField('League', reverse_delete_rule=CASCADE)
+    author = ReferenceField('User', reverse_delete_rule=CASCADE)
     create_date = DateTimeField(default=dt.datetime.utcnow)
     modify_date = DateTimeField()
