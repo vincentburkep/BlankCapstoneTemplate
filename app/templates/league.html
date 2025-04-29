@@ -32,17 +32,6 @@
     <a class="btn btn-success btn-sm my-2" href="{{ url_for('teamNew', leagueID=league.id) }}">Add Team</a>
 
 <h2 class="mt-4">Teams in This League</h2>
-{% if teams %}
-    <ul class="list-group">
-    {% for team in teams %}
-        <li class="list-group-item">
-            <strong>{{ team.name }}</strong> - {{ team.city }} (Coach: {{ team.coach }})
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No teams in this league yet.</p>
-{% endif %}
 
 {% for team in teams %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
