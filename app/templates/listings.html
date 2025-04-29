@@ -13,27 +13,35 @@
 
 {% if listings %}
     {% for listing in listings %}
-        <div class="row border-bottom">
-            <div class="col-2">
+        <div class="row border-bottom py-2">
+            <div class="col-3">
                 {% if loop.index == 1 %}
-                <h3 class="display-5">Date</h3>
+                    <h3 class="display-5">Location</h3>
                 {% endif %}
-
-                <a href="/listing/{{ listing.id }}">
-                    {{ moment(listing.create_date).calendar() }}
+                <a href="/listing/{{listing.id}}">
+                    {{listing.gym_location}}
                 </a>
             </div>
-            <div class="col-2">
+
+            <div class="col-3">
                 {% if loop.index == 1 %}
-                <h3 class="display-5">User</h3>
+                    <h3 class="display-5">Quality</h3>
                 {% endif %}
-                {{ listing.author.fname }} {{ listing.author.lname }}
+                {{listing.gym_quality}}
             </div>
-            <div class="col">
+
+            <div class="col-3">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">Subject</h3>
+                    <h3 class="display-5">Price</h3>
                 {% endif %}
-                {{ listing.subject }}
+                {{listing.price}}
+            </div>
+
+            <div class="col-3">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Contact</h3>
+                {% endif %}
+                {{listing.gym_contact}}
             </div>
         </div>
     {% endfor %}

@@ -1,39 +1,47 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <h1></h1>
+    <h1>Create or Edit Listing</h1>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 
         <p>
-            {{ form.subject.label }} <br>
-            {{ form.subject(size=64) }}
-            {% for error in form.subject.errors %}
+            {{ form.gym_location.label }}<br>
+            {{ form.gym_location(size=64) }}
+            {% for error in form.gym_location.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
         <p>
-            {{ form.content.label }} <br>
-            {{ form.content(cols=64, rows=10) }}
-            {% for error in form.content.errors %}
+            {{ form.gym_picture.label }}<br>
+            {{ form.gym_picture() }}
+            {% for error in form.gym_picture.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
         <p>
-            {{ form.tag.label }} <br>
-            {{ form.tag(size=64) }}
-            {% for error in form.tag.errors %}
+            {{ form.gym_quality.label }}<br>
+            {{ form.gym_quality(size=64) }}
+            {% for error in form.gym_quality.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
 
         <p>
-            {{ form.num.label }} <br>
-            {{ form.num(size=64) }}
-            {% for error in form.num.errors %}
+            {{ form.gym_price.label }}<br>
+            {{ form.gym_price(size=64) }}
+            {% for error in form.gym_price.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.gym_contact.label }}<br>
+            {{ form.gym_contact(size=64) }}
+            {% for error in form.gym_contact.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
@@ -42,4 +50,5 @@
             {{ form.submit() }}
         </p>
     </form>
+
 {% endblock %}
