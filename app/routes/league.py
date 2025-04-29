@@ -2,8 +2,8 @@ from app import app
 import mongoengine.errors
 from flask import render_template, flash, redirect, url_for
 from flask_login import current_user
-from app.classes.data import League
-from app.classes.forms import LeagueForm
+from app.classes.data import League, Team
+from app.classes.forms import LeagueForm, TeamForm
 from flask_login import login_required
 import datetime as dt
 
@@ -130,3 +130,18 @@ def leagueDelete(leagueID):
     # Send the user to the list of remaining blogs.
     return render_template('leagues.html',leagues=leagues)
     
+@app.route('/league/<leagueID>/team/new', methods=['GET', 'POST'])
+@login_required
+def teamNew(leagueID):
+    form = TeamForm()
+    if form.validate_on_submit():
+        newTeam = Team(
+            name=form.name.data,
+            coach=form.coach.data,
+            city=form.city.data,
+            league=League.objects.get(id=leagueID)
+        )
+        newTeam.save()
+        flash("Team added successfully!")
+        return redirect(url_for('league', leagueID=leagueID))
+    return render_template('teamform.html', form=form, leagueID=leagueID)
