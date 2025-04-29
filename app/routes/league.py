@@ -133,18 +133,28 @@ def leagueDelete(leagueID):
 @app.route('/league/<leagueID>/team/new', methods=['GET', 'POST'])
 @login_required
 def teamNew(leagueID):
+    league = League.objects.get(id=leagueID)
     form = TeamForm()
+
+    # Check if the league already has the maximum number of teams
+    current_team_count = Team.objects(league=league).count()
+    if current_team_count >= league.num_of_teams:
+        flash(f"Cannot add more than {league.num_of_teams} teams to this league.")
+        return redirect(url_for('league', leagueID=leagueID))
+
     if form.validate_on_submit():
         newTeam = Team(
             name=form.name.data,
-            coach=form.coach.data,
             city=form.city.data,
-            league=League.objects.get(id=leagueID)
+            coach=form.coach.data,
+            league=league,
+            author=current_user.id,
+            modify_date=dt.datetime.utcnow()
         )
         newTeam.save()
-        flash("Team added successfully!")
         return redirect(url_for('league', leagueID=leagueID))
-    return render_template('teamform.html', form=form, leagueID=leagueID)
+
+    return render_template('teamform.html', form=form)
 
 @app.route('/team/delete/<teamID>')
 @login_required

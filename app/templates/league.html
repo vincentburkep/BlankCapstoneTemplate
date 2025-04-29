@@ -29,7 +29,11 @@
             {{league.address}}
 
     </p>
-    <a class="btn btn-success btn-sm my-2" href="{{ url_for('teamNew', leagueID=league.id) }}">Add Team</a>
+    {% if teams|length < league.num_of_teams %}
+    <a href="{{ url_for('teamNew', leagueID=league.id) }}" class="btn btn-primary mt-3">Add Team</a>
+{% else %}
+    <p class="text-danger mt-3">Maximum number of teams reached ({{ league.num_of_teams }}).</p>
+{% endif %}
 
 <h2 class="mt-4">Teams in This League</h2>
 
