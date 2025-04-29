@@ -50,6 +50,7 @@ class Blog(Document):
     meta = {
         'ordering': ['-createdate']
     }
+    
 class Listing(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
     gym_location = StringField()
@@ -63,6 +64,7 @@ class Listing(Document):
     meta = {
         'ordering': ['-createdate']
     }
+
 class Comment(Document):
     # Line 63 is a way to access all the information in Course and Teacher w/o storing it in this class
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
