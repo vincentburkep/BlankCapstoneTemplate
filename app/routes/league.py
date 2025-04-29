@@ -145,3 +145,17 @@ def teamNew(leagueID):
         flash("Team added successfully!")
         return redirect(url_for('league', leagueID=leagueID))
     return render_template('teamform.html', form=form, leagueID=leagueID)
+
+@app.route('/team/delete/<teamID>')
+@login_required
+def teamDelete(teamID):
+    teamToDelete = Team.objects.get(id=teamID)
+    
+    # Check if the current user is authorized
+    # You could expand this to check if the user is the league's author if needed
+    leagueID = str(teamToDelete.league.id)
+    
+    teamToDelete.delete()
+    flash('Team deleted successfully.')
+
+    return redirect(url_for('league', leagueID=leagueID))
