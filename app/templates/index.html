@@ -3,7 +3,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" width="100">
-  <h1>Hello World!</h1>
-  <br><br><br>
+  <div style="text-align: center;">
+    <img src="{{ url_for('static', filename='Logo.png') }}" alt="SportsNearYu Logo" width="200">
+    <h1>Welcome to SportsNearYu</h1>
+    <p>Your ultimate destination for finding local sports leagues. Whether you're looking to join a team or organize a game, we have you covered!</p>
+    
+    <div>
+      <h3>How it works:</h3>
+      <ul>
+        <li>Search for local leagues in your area</li>
+        <li>Join a league or start your own team</li>
+      </ul>
+    </div>
+
+    <div>
+      <a href="/search" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+        Find a League Near You
+      </a>
+    </div>
+  </div>
 {% endblock %}
